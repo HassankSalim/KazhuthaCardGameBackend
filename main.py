@@ -538,6 +538,13 @@ async def websocket_endpoint(
     except WebSocketDisconnect:
         await manager.disconnect(game_id, player_name)
 
+@app.get("/healthz")
+async def health_check():
+    return {
+        "status": "healthy",
+        "timestamp": datetime.now().isoformat()
+    }
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
